@@ -41,13 +41,26 @@ def upload_file():
         parsed_eml = ep.decode_email_bytes(raw_email)
         
         parsed_json = json.dumps(parsed_eml, default=json_serial)
-        print(f"File 'object_name uploaded successfully to bucket.", parsed_eml) 
+        parsed_result = json.loads(parsed_json)['header']['header']['authentication-results'][0]
+        dkim = parsed_result.split('dkim=')[1].split()[0]
+        spf = parsed_result.split('spf=')[1].split()[0]
+        dmarc = parsed_result.split('dmarc=')[1].split()[0]
+        sender_ip = parsed_result.split('designates ')[1].split()[0]
+        
+        response = json.loads(parsed_json)
+        response['header']['header']['authentication-results-new'] = {
+            'dkim' : dkim,
+            'spf': spf,
+            'dmarc': dmarc,
+            'sender_ip': sender_ip
+        }
+
         return {
             "headers": {
                 "Content-Type": "application/json",
             },
             "statusCode": 200,
-            "body": parsed_eml,
+            "body": response,
         }
     except Exception as e:
         print(f"Failed to upload file 'object_name to bucket {str(e)}")
