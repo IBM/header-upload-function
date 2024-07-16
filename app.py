@@ -54,13 +54,16 @@ def upload_file():
             'dmarc': dmarc,
             'sender_ip': sender_ip
         }
+        response_final = json.dumps(response, default=json_serial)
+
+        # print('reponse type', type(json.dumps(response)))
 
         return {
             "headers": {
                 "Content-Type": "application/json",
             },
             "statusCode": 200,
-            "body": response,
+            "body": response_final,
         }
     except Exception as e:
         print(f"Failed to upload file 'object_name to bucket {str(e)}")
