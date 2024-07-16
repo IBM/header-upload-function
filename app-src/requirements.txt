@@ -5,5 +5,3 @@ requests
 datetime
 eml_parser
 python-dotenv
-Flask==2.2.3
-Flask-JSON==0.3.5
