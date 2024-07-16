@@ -2,18 +2,22 @@ import json
 from flask import Flask, jsonify, request
 from ibm_botocore.client import Config, ClientError
 import ibm_boto3
+import os
+# importing necessary functions from dotenv library
+from dotenv import load_dotenv, dotenv_values 
 app = Flask(__name__)
 
+load_dotenv()
 
 @app.route('/upload-file', methods=['POST'])
 def upload_file():
     credentials = {
-        'IBM_API_KEY_ID': 'Jo0EEG92SeoiEXQeIxJFRv0Eg4WOCFzsr_CcakDbaH9X',
-        'IAM_SERVICE_ID': 'iam-ServiceId-a5824351-ee48-468b-9e12-1cf26321bb8d',
-        'ENDPOINT': 'https://s3.us-south.cloud-object-storage.appdomain.cloud',
-        'BUCKET': 'custom-bucket-watsonx-challenge',
-        'AUTH_ENDPOINT' : 'https://iam.cloud.ibm.com/identity/token',
-        'INSTANCE_CRN' : 'crn:v1:bluemix:public:cloud-object-storage:global:a/1d341fdce08c4011b670e9f4de4b401a:79cf80bb-1526-4d27-85d5-6ee25077ec58::'
+        'IBM_API_KEY_ID': os.getenv("IBM_API_KEY_ID"),
+        'IAM_SERVICE_ID': os.getenv("IAM_SERVICE_ID"),
+        'ENDPOINT': os.getenv("ENDPOINT"),
+        'BUCKET': os.getenv("BUCKET"),
+        'AUTH_ENDPOINT' : os.getenv("AUTH_ENDPOINT"),
+        'INSTANCE_CRN' : os.getenv("INSTANCE_CRN")
     }
     file = request.files['fileObj']
     try:
