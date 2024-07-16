@@ -5,3 +5,5 @@ requests
 datetime
 eml_parser
 python-dotenv
+Flask
+Flask-JSON
