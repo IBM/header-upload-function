@@ -1,0 +1,6 @@
+ibm-cos-sdk==2.0.1
+botocore
+boto3
+requests
+datetime
+eml_parser
