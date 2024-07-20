@@ -19,6 +19,6 @@ RUN pip3 install werkzeug
 
 COPY . .
 ENV FLASK_APP=app
-EXPOSE 3003
+EXPOSE 8080
 
-CMD python app.py runserver 0.0.0.0:3003
+CMD python app.py runserver 0.0.0.0:8080
