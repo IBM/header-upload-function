@@ -29,3 +29,7 @@ def domain_check():
         }
     except Exception as e:
         print(f"Failed to upload file 'object_name to bucket {str(e)}")
+
+
+if __name__ == '__main__':
+   app.run(port=3003)
